@@ -1,0 +1,89 @@
+---
+# 1. ConfigMap — 应用配置
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: whoami-config
+data:
+  APP_NAME: "whoami"
+  APP_ENV: "production"
+  WELCOME_MSG: "🎉 Hello from K3s! I am a test dev intern."
+---
+# 2. Secret — 数据库凭证（模拟）
+apiVersion: v1
+kind: Secret
+metadata:
+  name: whoami-secret
+type: Opaque
+stringData:                      # stringData 自动 Base64 编码
+  DB_USER: "admin"
+  DB_PASS: "K3sLearning2026"
+---
+# 3. Service — 稳定入口
+apiVersion: v1
+kind: Service
+metadata:
+  name: whoami-svc
+spec:
+  selector:
+    app: whoami
+  ports:
+  - port: 80
+    targetPort: 8080
+  type: ClusterIP
+---
+# 4. Deployment — 核心！
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: whoami
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: whoami
+  template:
+    metadata:
+      labels:
+        app: whoami
+    spec:
+      containers:
+      - name: app
+        image: containous/whoami    # 小巧的 HTTP 调试工具，返回请求信息
+        ports:
+        - containerPort: 8080
+        envFrom:                     # 注入 ConfigMap
+        - configMapRef:
+            name: whoami-config
+        env:                         # 注入 Secret
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: whoami-secret
+              key: DB_USER
+        - name: DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: whoami-secret
+              key: DB_PASS
+        resources:                   # 🆕 资源限制
+          requests:                  # 调度保证
+            memory: "32Mi"
+            cpu: "50m"              # 50 millicores = 0.05 CPU
+          limits:                    # 硬上限
+            memory: "128Mi"
+            cpu: "200m"
+        livenessProbe:               # 🆕 存活探针：容器还活着吗？
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 5     # 启动后等 5 秒再检查
+          periodSeconds: 10          # 每 10 秒检查一次
+          failureThreshold: 3        # 连续 3 次失败才重启
+        readinessProbe:              # 🆕 就绪探针：能否接流量？
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 3
+          periodSeconds: 5
+          failureThreshold: 2

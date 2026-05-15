@@ -1,0 +1,51 @@
+groups:
+  - name: buggy-api-alerts
+    interval: 15s
+    rules:
+      # 告警1：错误率过高
+      - alert: HighErrorRate
+        expr: |
+          rate(http_errors_total[5m]) > 0.1
+        for: 1m
+        labels:
+          severity: critical
+          team: buggy-demo
+        annotations:
+          summary: "Buggy API 错误率飙升"
+          description: "过去 5 分钟内错误率 {{ $value }}/s，超过阈值 0.1/s"
+
+      # 告警2：P99 延迟过高
+      - alert: HighLatency
+        expr: |
+          histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m])) > 2
+        for: 1m
+        labels:
+          severity: warning
+          team: buggy-demo
+        annotations:
+          summary: "Buggy API P99 延迟 > 2s"
+          description: "端點 {{ $labels.endpoint }} 的 P99 延迟为 {{ $value }}s"
+
+      # 告警3：内存泄漏预警
+      - alert: MemoryLeakWarning
+        expr: |
+          app_cache_size_bytes > 10000
+        for: 5m
+        labels:
+          severity: warning
+          team: buggy-demo
+        annotations:
+          summary: "Buggy API 缓存大小异常增长"
+          description: "缓存大小已达到 {{ $value }} bytes，可能存在内存泄漏"
+
+      # 告警4：Bug1 触发频繁
+      - alert: BugProcessZeroValueFrequent
+        expr: |
+          rate(bug_process_zero_or_negative_total[5m]) > 0.05
+        for: 1m
+        labels:
+          severity: warning
+          team: buggy-demo
+        annotations:
+          summary: "Bug1 频繁触发：/api/process 收到非法参数"
+          description: "过去 5 分钟内触发 {{ $value }}/s 次零值或负数错误"

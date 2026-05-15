@@ -1,0 +1,75 @@
+---
+# Namespace：线上问题追踪演示
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: buggy-demo
+
+---
+# Deployment：buggy-api 应用
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: buggy-api
+  namespace: buggy-demo
+  labels:
+    app: buggy-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: buggy-api
+  template:
+    metadata:
+      labels:
+        app: buggy-api
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+        prometheus.io/path: "/metrics"
+    spec:
+      containers:
+        - name: buggy-api
+          image: buggy-api:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "50m"
+            limits:
+              memory: "128Mi"
+              cpu: "200m"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 5
+
+---
+# Service：暴露 buggy-api（ClusterIP + NodePort 方便调试）
+apiVersion: v1
+kind: Service
+metadata:
+  name: buggy-api
+  namespace: buggy-demo
+  labels:
+    app: buggy-api
+spec:
+  type: NodePort
+  selector:
+    app: buggy-api
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30080
+      protocol: TCP

@@ -1,0 +1,17 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+# 只抓 buggy-demo 命名空间的 Pod（通过 k3s 服务发现）
+scrape_configs:
+  - job_name: "buggy-api"
+    static_configs:
+      - targets:
+          - "localhost:8080"
+        labels:
+          app: "buggy-api"
+          env: "demo"
+
+# 告警规则
+rule_files:
+  - "/workspace/online_issue_tracking/prometheus-alerts.yml"

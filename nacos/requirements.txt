@@ -1,0 +1,2 @@
+nacos-sdk-python>=2.0
+pytest>=8.0

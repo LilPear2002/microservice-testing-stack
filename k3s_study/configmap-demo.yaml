@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+data:
+  APP_ENV: "staging"           # 环境变量方式
+  LOG_LEVEL: "debug"           # 测试环境用 debug
+  APP_PORT: "8080"             # 应用端口
+  nginx.conf: |                # 文件方式 — 整个配置文件！
+    server {
+      listen 80;
+      location / {
+        return 200 "Hello from $APP_ENV!";
+      }
+      location /health {
+        return 200 "OK";
+      }
+    }

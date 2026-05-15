@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app
+spec:
+  replicas: 2                    # 维持 2 个副本
+  selector:
+    matchLabels:
+      app: web                   # 管理带有 app=web 标签的 Pod
+  template:                      # Pod 模板（每次需要新建 Pod 时照这个来）
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:alpine
+        ports:
+        - containerPort: 80

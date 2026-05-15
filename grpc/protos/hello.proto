@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package hello;
+
+// ====== 1. Unary 模式：一问一答 ======
+message HelloRequest {
+  string name = 1;
+  int32 age = 2;
+}
+
+message HelloResponse {
+  string message = 1;
+  int64 timestamp = 2;
+}
+
+// ====== 2. Server Streaming 模式：客户端一个请求，服务端持续推送 ======
+message StoryRequest {
+  string topic = 1;  // 故事主题
+}
+
+message StoryChunk {
+  string content = 1;       // 故事的一小段
+  int32 chunk_number = 2;   // 第几段
+}
+
+// ====== 3. Client Streaming 模式：客户端持续发送，服务端汇总一个响应 ======
+message LogLine {
+  string level = 1;    // INFO / WARN / ERROR
+  string message = 2;
+  int64 timestamp = 3;
+}
+
+message LogSummary {
+  int32 total_lines = 1;
+  int32 info_count = 2;
+  int32 warn_count = 3;
+  int32 error_count = 4;
+}
+
+// ====== 4. Bidi Streaming 模式：双向自由收发 ======
+message ChatMessage {
+  string user = 1;
+  string text = 2;
+}
+
+message ChatReply {
+  string user = 1;
+  string text = 2;
+}
+
+// ====== 服务定义 ======
+service Greeter {
+  // 1. Unary — 阶段2已实现
+  rpc SayHello (HelloRequest) returns (HelloResponse);
+
+  // 2. Server Streaming — 服务端流
+  rpc TellStory (StoryRequest) returns (stream StoryChunk);
+
+  // 3. Client Streaming — 客户端流
+  rpc UploadLogs (stream LogLine) returns (LogSummary);
+
+  // 4. Bidi Streaming — 双向流
+  rpc Chat (stream ChatMessage) returns (stream ChatReply);
+}
