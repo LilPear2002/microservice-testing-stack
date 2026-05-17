@@ -63,6 +63,8 @@
 | 🗄️ | **Doris** | 4 | — | MPP 架构/列式存储/Aggregate/Unique/Duplicate 模型 |
 | 🔄 | **DataBus** | 4 | — | Canal→Kafka/CDC/binlog 解析/多目标扇出 |
 | ☸️ | **k3s** | — | — | K8s 基础：Pod/Deploy/Service/ConfigMap/Ingress |
+| 🃏 | **Mock 测试** | 4 | 91 | Dummy/Stub/Spy/Mock/Fake → 全链路 SAGA 回滚实战 |
+| ⚡ | **性能测试** | 4 | — | 压测流程 + Locust 进阶 + 压测平台架构 |
 
 > ⚡ Flink/Doris/DataBus 在 2C2G 机器上无法运行，以概念 + 模拟 + 面试话术学习  
 > 🏆 **总计 162 条测试，全部通过**
