@@ -1,0 +1,20 @@
+2025-05-19 08:00:00 INFO [main] ========================================
+2025-05-19 08:00:00 INFO [main] Starting MyWebApp v2.1.0
+2025-05-19 08:00:00 INFO [main] Port: 8080, Workers: 4, Debug: False
+2025-05-19 08:00:01 INFO [main] Connecting to database at localhost:5432
+2025-05-19 08:00:02 INFO [main] Database connection pool created (size=20)
+2025-05-19 08:00:02 INFO [main] Redis connected at localhost:6379
+2025-05-19 08:00:03 INFO [main] Loading route handlers...
+2025-05-19 08:00:03 INFO [main] Registered 15 route handlers
+2025-05-19 08:00:04 INFO [main] Application started successfully on 0.0.0.0:8080
+2025-05-19 08:01:00 INFO [request] GET /api/users - 200 (12ms)
+2025-05-19 08:01:05 INFO [request] POST /api/orders - 201 (45ms)
+2025-05-19 08:02:00 INFO [request] GET /api/products - 200 (8ms)
+2025-05-19 08:05:00 INFO [scheduler] Daily cleanup job started
+2025-05-19 08:05:30 INFO [scheduler] Cleaned 1423 expired sessions
+2025-05-19 08:10:00 INFO [request] GET /health - 200 (1ms)
+2025-05-19 08:15:00 INFO [request] GET /api/users/999 - 404 (3ms)
+2025-05-19 08:30:00 INFO [request] PUT /api/orders/ORD-001 - 200 (23ms)
+2025-05-19 08:45:00 WARNING [monitor] Disk usage: 78% on /var
+2025-05-19 09:00:00 WARNING [monitor] Memory usage: 82% (3.2GB / 3.9GB)
+2025-05-19 09:00:00 INFO [request] GET /api/users - 200 (15ms)

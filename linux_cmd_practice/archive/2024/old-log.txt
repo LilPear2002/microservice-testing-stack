@@ -1,0 +1,10 @@
+2024-01-15 10:23:45 INFO  Server started on port 8080
+2024-01-15 10:24:01 WARN  Connection pool at 85% capacity
+2024-01-15 10:25:12 ERROR Database connection timeout after 30s
+2024-01-15 10:26:00 INFO  Auto-recovery: reconnected to database
+2024-01-15 10:30:00 INFO  Daily cleanup job started
+2024-01-15 11:00:00 WARN  High memory usage detected: 92%
+2024-02-20 14:15:00 FATAL Out of memory: process killed by OOM killer
+2024-02-20 14:16:00 INFO  System restarting...
+2024-03-01 09:00:00 INFO  Version 1.5.0 deployed
+2024-03-15 16:45:23 ERROR Disk usage exceeded 90% on /dev/sda1

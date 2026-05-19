@@ -1,0 +1,21 @@
+server:
+  host: "0.0.0.0"
+  port: 3000
+  workers: 4
+
+database:
+  driver: "postgresql"
+  host: "db.internal"
+  port: 5432
+  name: "api_production"
+  pool_size: 20
+
+redis:
+  host: "redis.internal"
+  port: 6379
+  db: 0
+
+logging:
+  level: "INFO"
+  format: "json"
+  output: ["stdout", "/var/log/api/app.log"]

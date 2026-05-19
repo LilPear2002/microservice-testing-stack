@@ -1,0 +1,15 @@
+2025-05-19 08:00:00 INFO [api] API Service starting on port 3000
+2025-05-19 08:00:01 INFO [api] Connected to PostgreSQL at db.internal:5432
+2025-05-19 08:00:02 INFO [api] Loaded 12 route handlers
+2025-05-19 08:00:03 INFO [api] Server ready. Listening on 0.0.0.0:3000
+2025-05-19 08:05:00 INFO [api] GET /api/v1/users?page=1&limit=20 - 200 (45ms)
+2025-05-19 08:05:01 INFO [api] POST /api/v1/users - 201 (120ms)
+2025-05-19 08:10:00 WARNING [api] Slow endpoint detected: GET /api/v1/reports took 5200ms
+2025-05-19 08:15:00 ERROR [api] Unhandled exception in /api/v1/orders: DivisionByZero
+2025-05-19 08:20:00 ERROR [api] Database connection lost. Attempting reconnect...
+2025-05-19 08:20:05 INFO [api] Database reconnected successfully
+2025-05-19 08:30:00 INFO [api] Health check: OK
+2025-05-19 08:45:00 ERROR [api] Request validation failed: missing required field 'email'
+2025-05-19 09:00:00 INFO [api] GET /api/v1/orders?status=pending - 200 (35ms)
+2025-05-19 09:05:00 WARNING [api] Rate limit approaching: 900/1000 requests this minute
+2025-05-19 09:10:00 ERROR [api] Upstream service 'worker' unreachable (connection refused)

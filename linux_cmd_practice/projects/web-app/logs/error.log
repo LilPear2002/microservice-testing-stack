@@ -1,0 +1,20 @@
+2025-05-19 08:00:15 ERROR [web-app] ConnectionRefusedError: Unable to connect to database at db.internal:5432
+2025-05-19 08:00:16 WARNING [web-app] Retry 1/5: connecting to database...
+2025-05-19 08:00:17 INFO [web-app] Database connection established successfully
+2025-05-19 08:15:30 ERROR [web-app] ValueError: Invalid user ID format: 'abc-123'
+2025-05-19 08:20:00 ERROR [api-service] TimeoutError: Request to /api/products timed out after 30.0s
+2025-05-19 08:25:45 WARNING [api-service] Rate limit exceeded for IP 192.168.1.100 (450 req/min)
+2025-05-19 08:30:10 ERROR [web-app] sqlite3.OperationalError: database is locked
+2025-05-19 08:30:11 ERROR [web-app] sqlite3.OperationalError: database is locked
+2025-05-19 08:30:12 ERROR [web-app] sqlite3.OperationalError: database is locked
+2025-05-19 08:35:00 FATAL [web-app] MemoryError: Unable to allocate 256MB (free: 128MB)
+2025-05-19 08:35:01 CRITICAL [web-app] Process terminated with signal 9 (SIGKILL)
+2025-05-19 08:40:00 ERROR [api-service] psycopg2.OperationalError: FATAL: too many connections for database
+2025-05-19 08:45:00 WARNING [web-app] Disk usage on /var/log approaching 85%
+2025-05-19 08:50:00 ERROR [data-pipeline] KafkaTimeoutError: Failed to produce message to topic 'events'
+2025-05-19 08:55:00 ERROR [data-pipeline] JSONDecodeError: Invalid JSON in record #1042: '{"id": 1042, "name": "Bro
+2025-05-19 09:00:00 WARNING [web-app] Slow query detected (4523ms): SELECT * FROM orders WHERE status='pending'
+2025-05-19 09:05:00 ERROR [web-app] PermissionError: [Errno 13] Permission denied: '/etc/shadow'
+2025-05-19 09:10:00 ERROR [api-service] HTTPError: 502 Bad Gateway from upstream service 'worker'
+2025-05-19 09:15:00 ERROR [api-service] HTTPError: 502 Bad Gateway from upstream service 'worker'
+2025-05-19 09:20:00 ERROR [api-service] HTTPError: 502 Bad Gateway from upstream service 'worker'
